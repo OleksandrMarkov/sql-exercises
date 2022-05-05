@@ -68,3 +68,19 @@ DELETE FROM Customers WHERE Country = 'Norway';
 
 2. Delete all the records from the Customers table.
 DELETE FROM Customers;
+
+SQL SELECT TOP; LIMIT, TOP PERCENT
+
+1. Select the first three records from the Customers table.
+SELECT TOP 3 * FROM Customers;  -- SQL Server
+SELECT * FROM Customers LIMIT 3; -- MySQL
+SELECT * FROM Customers FETCH FIRST 3 ROWS ONLY; -- Oracle
+
+2.  Select the first 50% of the records from the Customers table.
+SELECT TOP 50 PERCENT * FROM Customers; -- SQL Server / MS Access
+SELECT * FROM Customers FETCH FIRST 50 PERCENT ROWS ONLY; -- Oracle
+
+3. Select the first three records from the Customers table, where the country is Germany.
+SELECT TOP 3 * FROM Customers WHERE Country='Germany'; -- SQL Server / MS Access
+SELECT * FROM Customers WHERE Country='Germany' LIMIT 3; -- MySQL
+SELECT * FROM Customers WHERE Country='Germany' FETCH FIRST 3 ROWS ONLY; -- Oracle
