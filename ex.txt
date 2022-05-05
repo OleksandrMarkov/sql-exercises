@@ -42,7 +42,7 @@ SQL INSERT INTO:
 1. Insert a new record in the Customers table.
 INSERT INTO Customers (CustomerName, Address, City, PostalCode, Country) VALUES ('Hekkan Burger', 'Gateveien 15', 'Sandnes', '4306', 'Norway');
 
-SQL NULL Values
+SQL NULL Values:
 
 1. Select all records from the Customers where the PostalCode column is empty.
 SELECT * FROM Customers WHERE PostalCode IS NULL;
@@ -50,7 +50,7 @@ SELECT * FROM Customers WHERE PostalCode IS NULL;
 2. Select all records from the Customers where the PostalCode column is NOT empty.
 SELECT * FROM Customers WHERE PostalCode IS NOT NULL;
 
-SQL UPDATE
+SQL UPDATE:
 
 1. Update the City column of all records in the Customers table.
 UPDATE Customers SET City = 'Oslo';
@@ -61,7 +61,7 @@ UPDATE Customers SET City = 'Oslo' WHERE Country = 'Norway';
 3. Update the City value and the Country value.
 UPDATE Customers SET City = 'Oslo', Country = 'Norway' WHERE CustomerID = 32;
 
-SQL DELETE
+SQL DELETE:
 
 1. Delete all the records from the Customers table where the Country value is 'Norway'.
 DELETE FROM Customers WHERE Country = 'Norway';
@@ -69,7 +69,7 @@ DELETE FROM Customers WHERE Country = 'Norway';
 2. Delete all the records from the Customers table.
 DELETE FROM Customers;
 
-SQL SELECT TOP; LIMIT, TOP PERCENT
+SQL SELECT TOP; LIMIT, TOP PERCENT:
 
 1. Select the first three records from the Customers table.
 SELECT TOP 3 * FROM Customers;  -- SQL Server
@@ -85,7 +85,7 @@ SELECT TOP 3 * FROM Customers WHERE Country='Germany'; -- SQL Server / MS Access
 SELECT * FROM Customers WHERE Country='Germany' LIMIT 3; -- MySQL
 SELECT * FROM Customers WHERE Country='Germany' FETCH FIRST 3 ROWS ONLY; -- Oracle
 
-SQL SELECT MIN, MAX, COUNT, AVG, SUM
+SQL SELECT MIN, MAX, COUNT, AVG, SUM:
 
 1. Use the MIN function to select the record with the smallest value of the Price column.
 SELECT MIN(Price) FROM Products;
@@ -102,7 +102,7 @@ SELECT AVG(Price) FROM Products;
 5. Use an SQL function to calculate the sum of all the Price column values in the Products table.
 SELECT SUM(Price) FROM Products;
 
-SQL LIKE
+SQL LIKE:
 
 1. Select all records where the value of the City column starts with the letter "a".
 SELECT * FROM Customers WHERE City LIKE 'a%';
@@ -119,7 +119,7 @@ SELECT * FROM Customers WHERE City LIKE "a%b";
 5. Select all records where the value of the City column does NOT start with the letter "a".
 SELECT * FROM Customers WHERE City NOT LIKE 'a%';
 
-SQL WILDCARDS
+SQL WILDCARDS:
 
 1. Select all records where the second letter of the City is an "a".
 SELECT * FROM Customers WHERE City LIKE '_a%';
@@ -133,7 +133,7 @@ SELECT * FROM Customers WHERE City LIKE '[a-f]%';
 4. Select all records where the first letter of the City is NOT an "a" or a "c" or an "f".
 SELECT * FROM Customers WHERE City LIKE '[!acf]%';
 
-SQL IN
+SQL IN:
 
 1. Use the IN operator to select all the records where Country is either "Norway" or "France".
 SELECT * FROM Customers WHERE Country IN ('Norway', 'France');
@@ -141,7 +141,7 @@ SELECT * FROM Customers WHERE Country IN ('Norway', 'France');
 2. Use the IN operator to select all the records where Country is NOT "Norway" and NOT "France".
 SELECT * FROM Customers WHERE Country NOT IN ('Norway', 'France');
 
-SQL BETWEEN
+SQL BETWEEN:
 
 1. Use the BETWEEN operator to select all the records where the value of the Price column is between 10 and 20.
 SELECT * FROM Products WHERE Price BETWEEN 10 AND 20;
@@ -151,3 +151,11 @@ SELECT * FROM Products WHERE Price NOT BETWEEN 10 AND 20;
 
 3. Use the BETWEEN operator to select all the records where the value of the ProductName column is alphabetically between 'Geitost' and 'Pavlova'.
 SELECT * FROM Products WHERE ProductName BETWEEN 'Geitost' AND 'Pavlova';
+
+SQL Aliases:
+
+1. When displaying the Customers table, make an ALIAS of the PostalCode column, the column should be called Pno instead.
+SELECT CustomerName, Address, PostalCode AS Pno FROM Customers;
+
+2. When displaying the Customers table, refer to the table as Consumers instead of Customers.
+SELECT * FROM Customers AS Consumers;
