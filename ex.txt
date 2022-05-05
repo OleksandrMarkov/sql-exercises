@@ -60,3 +60,11 @@ UPDATE Customers SET City = 'Oslo' WHERE Country = 'Norway';
 
 3. Update the City value and the Country value.
 UPDATE Customers SET City = 'Oslo', Country = 'Norway' WHERE CustomerID = 32;
+
+SQL DELETE
+
+1. Delete all the records from the Customers table where the Country value is 'Norway'.
+DELETE FROM Customers WHERE Country = 'Norway';
+
+2. Delete all the records from the Customers table.
+DELETE FROM Customers;
