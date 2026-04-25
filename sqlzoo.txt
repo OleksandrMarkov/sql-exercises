@@ -172,3 +172,141 @@ Kuwait	        City
 Mexico	        City
 Monaco	        City
 Panama	        City
+
+
+
+
+
+
+
+
+
+2 SELECT from WORLD Tutorial
+name	      continent	area	 population   gdp
+Afghanistan   Asia	652230	 25500100     20343000000
+Albania	      Europe	28748	 2831741      12960000000
+Algeria	      Africa	2381741	 37100000     188681000000
+Andorra	      Europe	468	 78115        3712000000
+Angola	      Africa	1246700	 20609294     100990000000
+...
+
+Some points to note:
+
+There is a table called world with nearly 200 records.
+The first record is Afghanistan in Asia
+The final record is Zimbabwe in Africa.
+The table has eight columns or attributes . These are:
+
+Field		      Type	   	   Notes
+name	   	      varchar(50)	   The English name of the country - this is the primary key.
+continent	      varchar(60)	   Continents (Europe, Asia etc) plus a few others.
+area	   	      decimal(10,0)	   Land area in square kilometers
+population 	      decimal(11,0)        Number of people living in the country
+gdp	   	      decimal(14,0)        Total annual values of goods and services in US dollars
+capital	              varchar(60)	   Name of the capital city
+tld                   varchar(5)           Top level internet domain
+flag                  varchar(255)         A link to an image of the flag
+wikiref	              varchar(255)	   The wikidata.org refence for the country
+
+
+
+
+Observe the result of running this SQL command to show the name, continent and population of all countries.
+
+SELECT name, continent, population FROM world
+
+
+
+Show the name for the countries that have a population of at least 200 million. 
+
+SELECT name FROM world
+WHERE population >= 200000000
+
+
+
+Give the name and the per capita GDP for those countries with a population of at least 200 million.
+per capita GDP is the GDP divided by the population GDP/population
+
+select name, gdp/population
+from world
+where population >= 200000000
+
+
+
+Show the name and population in millions for the countries of the continent 'South America'. Divide the population by 1000000 to get population in millions.
+
+select name, population/1000000
+from world
+where continent =  'South America'
+
+
+
+Show the name and population for France, Germany, Italy
+
+select name, population
+from world
+where name in ('France', 'Germany', 'Italy')
+
+
+
+Show the countries which have a name that includes the word 'United'
+
+select name
+from world
+where name like '%United%'
+
+
+
+A country is big if it has an area of more than 3 million sq km or it has a population of more than 250 million. Show the countries that are big by area or big by population.
+Show name, population and area.
+
+select name, population, area
+from world
+where area > 3000000 or population > 250000000
+
+
+
+One or the other (but not both)
+Exclusive OR (XOR). Show the countries that are big by area (more than 3 million) or big by population (more than 250 million) but not both. Show name, population and area.
+
+select name, population, area
+from world
+where area > 3000000 xor population > 250000000
+
+
+
+Show the name and population in millions and the GDP in billions for the countries of the continent 'South America'. Use the ROUND function to show the values to two decimal places.
+
+select name, round(population/1000000, 2), round(gdp/1000000000, 2)
+from world
+where continent = 'South America'
+
+
+
+Show the name and capital where the name and the capital have the same number of characters.
+
+SELECT name, capital
+  FROM world
+ WHERE LENGTH(name) = LENGTH(capital)
+
+
+
+Show the name and the capital where the first letters of each match. Don't include countries where the name and the capital are the same word.
+
+SELECT name, capital
+FROM world
+WHERE LEFT(name,1) = LEFT(capital,1) AND
+      name <> capital
+
+
+
+Find the country that has all the vowels and no spaces in its name.
+
+SELECT name
+   FROM world
+WHERE name LIKE '%a%' AND
+      name LIKE '%e%' AND
+      name LIKE '%i%' AND
+      name LIKE '%o%' AND
+      name LIKE '%u%'
+  AND name NOT LIKE '% %'
