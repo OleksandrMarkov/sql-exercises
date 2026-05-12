@@ -70,3 +70,71 @@ SELECT name,
            ,'%') AS percentage
 FROM  world
 WHERE continent ='Europe'
+
+/*
+We can use the word ALL to allow >= or > or < or <=to act over a list.
+For example, you can find the largest country in the world,
+by population with this query:
+*/
+SELECT name
+FROM world
+WHERE population >= ALL(SELECT population
+                        FROM world
+                        WHERE population>0)
+/* You need the condition population>0 in the sub-query 
+as some countries have null for population. */
+
+
+/*Which countries have a GDP greater than every country in Europe?
+ [Give the name only.] (Some countries may have NULL gdp values)*/
+SELECT name
+FROM world
+WHERE gdp > ALL (SELECT gdp
+                 FROM world
+                 WHERE continent = 'Europe' AND
+                       gdp > 0)
+
+
+/* Find the largest country (by area) in each continent, show the continent,
+the name and the area: */
+SELECT continent, name, area FROM world x
+  WHERE area >= ALL
+    (SELECT area FROM world y
+        WHERE y.continent=x.continent
+          AND area>0)
+-- The above example is known as a correlated or synchronized sub-query.
+
+
+		  
+-- List each continent and the name of the country that comes first alphabetically.
+SELECT continent, name FROM world x
+WHERE name <= ALL (SELECT name
+                   FROM world y
+                   WHERE y.continent = x.continent) 				   
+
+
+/*
+Find the continents where all countries have a population <= 25000000.
+Then find the names of the countries associated with these continents.
+Show name, continent and population.
+*/
+SELECT 
+    name, 
+    continent, 
+    population
+FROM 
+    world
+WHERE continent NOT IN (
+        SELECT DISTINCT continent 
+        FROM world 
+        WHERE population > 25000000
+    );
+
+/* Some countries have populations more than three times
+that of all of their neighbours (in the same continent).
+Give the countries and continents. */
+SELECT name, continent FROM world x
+WHERE population/3 > ALL (SELECT population FROM world y
+                          WHERE x.continent = y.continent AND
+                                x.name <> y.name AND
+                                population > 0)						
